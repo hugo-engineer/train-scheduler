@@ -8,6 +8,12 @@ color:white;
 text-align: center
 }
 
+h4 {
+  
+    text-align: center;
+    color: white;
+}
+
 .card {
     margin-top: 10px;
 }
