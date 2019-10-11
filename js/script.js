@@ -32,16 +32,16 @@ $("#submit").on("click", function (e) {
 
 database.ref().on("child_added", function (snapshot) {
 
-    var firstTime = snapshot.val().firstTime.split(':');
-    var trainStart = moment().hour(firstTime[0]).minute(firstTime[1]).second(0);
-    var sinceStart = moment().diff(trainStart,'minutes');
-    Console.LOG(trainStart);
-    var timeLeft = snapshot.val().freq - (sinceStart % snapshot.val().freq);
+    var firstValue = snapshot.val().firstTime;
+    var firstTime = moment(firstValue, "hh:mm");
+    var timeDifference = moment().diff(moment(firstTime), "minutes");
+    console.log(timeDifference);
+
+     
+    var timeLeft = snapshot.val().freq - (timeDifference % snapshot.val().freq);
     var nextTrain = moment().add(timeLeft, 'minutes')
     var nextTrainFormatted = moment(nextTrain).format(" DD MMM  YYYY, h:mm a")
 
-
-    //1.  attribute insert with first time and freq
     var insertRow = "<tr data-firstTime=><td>" + snapshot.val().trainName + "</td>" +
         "<td>" + snapshot.val().destLocate + "</td>" +
         "<td>" + snapshot.val().freq + "</td>" +
